@@ -1,27 +1,20 @@
 @extends('layouts.fo')
 
 @section('content')
+    <button onclick="history.back()" class="btn btn-secondary">
+        Voltar
+    </button>
     <h6>Detalhes do user {{ $userInfo->name }}</h6>
-    <p>{{ $userInfo->email }}</p>
-    <p>{{ $userInfo->address }}</p>
-    <p>{{ $userInfo->nif }}</p>
 
-
-
-    @extends('layouts.fo')
-
-@section('content')
-    <h1>Adicionar users</h1>
-    <form method="POST" action="{{ route('users.update') }}">
+    <form method="POST" action="{{ route('users.update') }}" enctype="multipart/form-data">
         @method('PUT')
         @csrf
 
-        <input type="hidden" name="id" value="{{$user->id}}">
-
+        <input type="hidden" name="id" value="{{ $userInfo->id }}">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Nome</label>
-            <input value="{{$userInfo->name}}" required type="text">required type="text" name="name" class="form-control" id="exampleInputEmail1"
-                aria-describedby="emailHelp">
+            <input value="{{ $userInfo->name }}" required type="text" name="name" class="form-control"
+                id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         @error('name')
             <p>Nome inválido</p>
@@ -29,21 +22,30 @@
 
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input disabled type="email" value="{{$userInfo->email}}" name="email"
-       class="form-control" id="exampleInputEmail1">
+            <input disabled type="email" value="{{ $userInfo->email }}" name="email" class="form-control"
+                id="exampleInputEmail1" aria-describedby="emailHelp">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         @error('email')
             <p>email inválido</p>
         @enderror
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Morada</label>
+            <input value="{{ $userInfo->address }}" type="text" name="address" class="form-control"
+                id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nif</label>
+            <input value="{{ $userInfo->nif }}" type="text" name="nif" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp">
+        </div>
 
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input required type="password" name="password" class="form-control" id="exampleInputPassword1">
+            <label for="">Foto</label>
+            <input type="file" name="photo" accept="image/*">
+
         </div>
-        @error('password')
-            <p>password inválida</p>
-        @enderror
+
 
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>

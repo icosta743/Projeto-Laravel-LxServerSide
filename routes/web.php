@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\GiftController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [UtilController::class, 'loadWelcome'])->name('welcome');
 
@@ -14,7 +15,7 @@ Route::get('/hello/{message}', function ($message) {
 });
 
 //rota de homepage
-Route::get('/homepage', [UtilController::class, 'loadHomepage'])->name('home');
+Route::get('/home', [UtilController::class, 'loadHomepage'])->name('home');
 
 
 //rotas de users
@@ -27,7 +28,7 @@ Route::get('/delete-users/{id}', [UserController::class, 'deleteUsers'])->name('
 
 
 //rota para ver /editar users
-Route::get('/edit-users/{id}',[UserController::class, 'editUsers'] )->name('users.edit');
+Route::get('/edit-users/{id}', [UserController::class, 'editUsers'] )->name('users.edit')->middleware('auth');
 
 
 //rota de registar users
@@ -79,7 +80,10 @@ Route::put('/update-gifts', [GiftController::class, 'updateGift'])->name('gifts.
 Route::get('/delete-gifts/{id}', [GiftController::class, 'deleteGifts'])->name('gifts.delete');
 
 
+// EXERCÍCIO MIDDLEWARE
 
+// rota da home do dashboard (só para users autenticados)
+Route::get('/dashboard', [DashboardController::class, 'loadDashboard'])->name('dashboard')->middleware('auth');
 
 
 //rota fallback
