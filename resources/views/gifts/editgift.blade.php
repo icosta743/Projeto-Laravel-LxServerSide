@@ -56,6 +56,7 @@
         @enderror
 
         <button type="submit" class="btn btn-primary">Actualizar</button>
+        
     </form>
 
 </div>
